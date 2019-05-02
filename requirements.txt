@@ -1,3 +1,2 @@
 requests
 cernrequests
-git+https://github.com/CMSTrackerDPG/wbmcrawlr

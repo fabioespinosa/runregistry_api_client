@@ -5,7 +5,7 @@ from cernrequests import get_sso_cookies, certs
 from runregistry.utils import transform_to_rr_run_filter, transform_to_rr_dataset_filter
 import urllib3
 # Silence unverified HTTPS warning:
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+# urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 PAGE_SIZE = 50
 
 cert = 'certs/usercert.pem'
