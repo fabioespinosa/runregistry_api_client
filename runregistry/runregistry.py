@@ -164,7 +164,7 @@ def get_datasets(limit=40000, compress_attributes=True, **kwargs):
         return None
     for page_number in range(1, page_count):
         additional_datasets = _get_page(
-            page=page_number, url=url, data_type='datasets' ** kwargs)
+            page=page_number, url=url, data_type='datasets', **kwargs)
         datasets.extend(additional_datasets.get('datasets'))
         if len(datasets) >= limit:
             datasets = datasets[:limit]
