@@ -1,0 +1,4 @@
+requests
+cernrequests
+runregistryclient
+git+https://github.com/CMSTrackerDPG/wbmcrawlr
