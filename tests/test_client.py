@@ -17,23 +17,86 @@ def test_get_runs():
     # Gets runs between run number 309000 and 310000
     filter_run = {
         'run_number': {
-            '>': 309000,
-            '<': 310000
-        }
+            'and': [
+                {'>': 309000},
+                {'<': 310000}
+            ]
+        },
     }
     runs = get_runs(filter=filter_run)
     assert len(runs) > 0
     # Gets runs that contain lumisections that classified DT as GOOD AND lumsiections that classified hcal as STANDBY
     filter_run = {
-        'dt': 'GOOD',
-        'hcal': 'STANDBY'
+        'run_number': {
+            'and': [
+                {'>': 309000},
+                {'<': 310000}
+            ]
+        },
+        'dt': 'GOOD'
+        # 'hcal': 'STANDBY'
     }
+    
     runs = get_runs(filter=filter_run)
     assert len(runs) > 0
+
+def test_get_runs_with_ignore_filter():
+    filter_run = {
+        'run_number': {
+            'and': [
+                {'>': 309000},
+                {'<': 310000}
+            ]
+        }, 
+        'oms_attributes.hlt_key': {
+            'like': '%commissioning2018%'
+        },
+        'triplet_summary.dt_triplet.GOOD': {
+            '>': 0
+        }
+    }
+    runs = get_runs(filter=filter_run, ignore_filter_transformation=True)
+    assert len(runs) > 0
+
+def test_get_runs_not_compressed():
+    runs = get_runs(
+        filter={
+            'run_number': {
+                'and': [
+                    {'>': 309000},
+                    {'<': 310000}
+                ]
+            },
+            'dt': 'GOOD'
+        },
+        compress_attributes=False
+    )
+    assert len(runs) > 0
+
+def get_runs_with_combined_filter():
+    runs = get_runs(
+        filter={
+            'run_number': {
+                'and': [
+                    {'>': 309000},
+                    {'<': 310000}
+                ]
+            # },
+            # 'hlt_key': {
+            #     'like': '%commissioning2018%'
+            # },
+            # 'significant': {
+            #     '=': True
+            }
+        }
+    )
+    print(len(runs))
+
 
 
 def test_get_dataset_names_of_run():
     dataset_names = get_dataset_names_of_run(run_number=321777)
+    assert len(dataset_names)>0
 
 
 def test_get_dataset():

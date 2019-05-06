@@ -1,6 +1,6 @@
 import json
 
-from runregistry.attributes import run_triplet_attributes, run_rr_attributes, run_oms_attributes, dataset_table_attributes, dataset_attributes, dataset_other_attributes
+from runregistry.attributes import run_table_attributes, run_triplet_attributes, run_rr_attributes, run_oms_attributes, dataset_table_attributes, dataset_attributes, dataset_other_attributes
 
 
 def transform_to_rr_run_filter(run_filter):
@@ -23,7 +23,9 @@ def transform_to_rr_run_filter(run_filter):
                 {'=': x} if type(x) in (int, float, str) else x
                 for x in value['or']
             ]
-        if key in run_rr_attributes:
+        if key in run_table_attributes:
+            transformed_filter[key] = value
+        elif key in run_rr_attributes:
             transformed_filter['rr_attributes.'+key] = value
         elif key in run_triplet_attributes:
             if '=' in value and type(value['=']) == str:

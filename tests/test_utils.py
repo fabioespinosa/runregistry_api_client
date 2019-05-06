@@ -5,7 +5,7 @@ class TestFilterCreation:
     def test_get_run(self):
         run_number = 323434
         assert transform_to_rr_run_filter(run_filter={'run_number': run_number}) == {
-            'oms_attributes.run_number': {'=': run_number}}
+            'run_number': {'=': run_number}}
 
     def test_get_multiple_run_using_or(self):
         run_number1 = 323555
@@ -18,7 +18,7 @@ class TestFilterCreation:
             }
         }
         desired_output = {
-            'oms_attributes.run_number': {
+            'run_number': {
                 'or': [
                     {'=': run_number1},
                     {'=': run_number2},

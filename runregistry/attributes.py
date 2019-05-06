@@ -1,4 +1,8 @@
 # run attributes:
+run_table_attributes = (
+    'run_number'
+)
+
 run_triplet_attributes = (
     'dt',
     'es',
@@ -38,7 +42,6 @@ run_oms_attributes = (
     'init_lumi',
     'clock_type',
     'components',
-    'run_number',
     'start_time',
     'dt_included',
     'fill_number',

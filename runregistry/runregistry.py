@@ -48,7 +48,9 @@ def _get_page(url, page=0, data_type='runs', ignore_filter_transformation=False,
     elif data_type == 'datasets' and not ignore_filter_transformation:
         query_filter = transform_to_rr_dataset_filter(
             dataset_filter=query_filter)
-
+    if os.getenv('ENVIRONMENT') == 'development':
+        print(url)
+        print(query_filter)
     payload = json.dumps(
         {
             'page': page,
