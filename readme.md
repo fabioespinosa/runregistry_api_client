@@ -10,7 +10,21 @@ Python client to retrieve and query data from [CMS Run Registry](https://cmsrunr
 pip install runregistry
 ```
 
+## Python version and Virtual env
+
+Python version>=3.6 is required for this package. 
+
+To use python 3.6 in lxplus: https://cern.service-now.com/service-portal/article.do?n=KB0000730
+And a virtual environment, if you are in lxplus you should run the following commands:
+
+```bash
+virtualenv venv
+source venv/bin/activate
+```
+
 ## Authentication (Prerequisite)
+
+
 
 You must provide a way for the client to access a [Grid user certificate](https://ca.cern.ch/ca/).
 
