@@ -42,6 +42,7 @@ You can either do this in 3 possible ways:
 
 ```bash
 mkdir -p ~/private
+# For next commands Import Password is blank, PEM passphrase needs to be set
 openssl pkcs12 -clcerts -nokeys -in myCertificate.p12 -out ~/private/usercert.pem
 openssl pkcs12 -nocerts -in myCertificate.p12 -out ~/private/userkey.tmp.pem
 openssl rsa -in ~/private/userkey.tmp.pem -out ~/private/userkey.pem
