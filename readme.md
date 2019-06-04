@@ -186,16 +186,23 @@ datasets = runregistry.get_datasets(
                 {'<': 310000}
             ]
         }
-    )
+    }
+)
 ```
 
 ### Handling the response
+
+When filtering runs, the attributes from the response get divided into those belonging to OMS and those belonging to RR (to see which belong to which, see the tables below, or go through a response).
+
+Those that belong to OMS are inside "oms_attributes".
+
+Those that belong to RR are inside "rr_attributes".
 
 ### Attributes available to query
 
 According to the type of attribute (number, string, boolean), see the Operator table above to see which types of operators can be applied to querying
 
-OMS ATTRIBUTES:
+Oms Attributes:
 
 | Attribute                |  Type   | Belongs to |
 | ------------------------ | :-----: | :--------: |
@@ -236,7 +243,7 @@ OMS ATTRIBUTES:
 | initial_prescale_index   | number  |    OMS     |
 | beams_present_and_stable | boolean |    OMS     |
 
-RR ATTRIBUTES:
+RR Attributes:
 
 | Attribute   |  Type   | Belongs to |
 | ----------- | :-----: | :--------: |

@@ -145,8 +145,6 @@ def test_get_datasets_with_filter():
     )
 
 
-test_get_datasets_with_filter()
-
 # TODO
 def test_generate_json():
     pass
