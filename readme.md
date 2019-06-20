@@ -54,14 +54,14 @@ TODO: finish way to insert certificate
 
 ```python
 import runregistry
-runregistry.get_run(run_number=328762)
+run = runregistry.get_run(run_number=328762)
 ```
 
 ### Query several runs (get_runs):
 
 ```python
 import runregistry
-runregistry.get_runs(run_number={
+runs = runregistry.get_runs(run_number={
     'or': [328762, 323555, 323444]
 })
 ```
@@ -70,7 +70,7 @@ Apply a custom filter (run_numbers between 309000 and 310000 which had at least 
 
 ```python
 import runregistry
-runregistry.get_runs(
+runs = runregistry.get_runs(
     filter={
         'run_number': {
             'and':[
@@ -87,7 +87,7 @@ Do note that we use dt-dt ('dt' twice) this is due to the fact that there are mu
 
 ```python
 import runregistry
-runregistry.get_runs(
+runs = runregistry.get_runs(
     filter={
         'run_number': {
             'and':[
