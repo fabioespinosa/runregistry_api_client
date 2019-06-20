@@ -14,8 +14,8 @@ import pytest
 import json
 
 
-common_run_number = 328762
-common_dataset_name = "/Express/Commissioning2018/DQM""
+common_run_number = 327743
+common_dataset_name = "/PromptReco/HICosmics18A/DQM"
 
 
 def test_get_run():
