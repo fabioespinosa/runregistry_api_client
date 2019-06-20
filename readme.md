@@ -300,6 +300,12 @@ datasets = runregistry.get_datasets(filter={
 })
 ```
 
+## Running Tests
+
+```
+pytest --cov .
+```
+
 ## Troubleshooting
 
 ## Support
@@ -307,3 +313,14 @@ datasets = runregistry.get_datasets(filter={
 If you have any questions, or the client is not working properly feel free to drop me an email at [f.e@cern.ch](mailto:f.e@cern.ch). Or through skype at fabioe24, i'm also available in mattermost.
 
 ## To update PIP package
+
+```bash
+python setup.py sdist bdist_wheel
+twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+```
+
+## FAQ
+
+### Does this work with Python 2.7?
+
+No.
