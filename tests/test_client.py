@@ -18,6 +18,20 @@ common_run_number = 327743
 common_dataset_name = "/PromptReco/HICosmics18A/DQM"
 
 
+def test_with_local_certificate():
+    # if ENVIRONMENT == "development":
+    # For this test to pass you must include cert and key in certs/ folder:
+    cert = "certs/usercert.pem"
+    key = "certs/userkey.pem"
+    run = get_run(run_number=common_run_number, cert=(cert, key))
+    print(run)
+    # else:
+    #     pass
+
+
+test_with_local_certificate()
+
+
 def test_get_run():
     run_number = 328762
     run = get_run(run_number=run_number)

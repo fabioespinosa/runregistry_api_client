@@ -6,14 +6,14 @@ from runregistry.utils import transform_to_rr_run_filter, transform_to_rr_datase
 import urllib3
 
 # Silence unverified HTTPS warning:
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+# urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 PAGE_SIZE = 50
 
 cert = "certs/usercert.pem"
 key = "certs/userkey.pem"
 api_url = "https://dev-cmsrunregistry.web.cern.ch/api"
 if os.getenv("ENVIRONMENT") == "development":
-    api_url = "http://localhost:9500"
+    # api_url = "http://localhost:9500"
     cert = "certs/usercert.pem"
     key = "certs/userkey.pem"
 
@@ -32,6 +32,7 @@ def _get_cookies(url, **kwargs):
         raise Exception(
             'No certificate passed, pass one in a tuple as cert=(cert,key), to authenticate your request. Or place them in your /private folder on AFS under the names of "usercert.pem" and "userkey.pem", please read authentication on README.md for more details'
         )
+    ca_bundle = certs.where()
     cookies = get_sso_cookies(url, cert)
     return cookies
 
