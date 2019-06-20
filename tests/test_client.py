@@ -11,6 +11,7 @@ from runregistry.runregistry import (
     get_joint_lumisection_ranges,
 )
 import pytest
+import json
 
 
 def test_get_run():
@@ -32,11 +33,20 @@ def test_get_runs():
     # Gets runs that contain lumisections that classified DT as GOOD AND lumsiections that classified hcal as STANDBY
     filter_run = {
         "run_number": {"and": [{">": 309000}, {"<": 310000}]},
-        "dt": "GOOD"
+        "dt-dt": "GOOD"
         # 'hcal': 'STANDBY'
     }
 
     runs = get_runs(filter=filter_run)
+    assert len(runs) > 0
+    runs = []
+
+    filter_run = {
+        "run_number": {"and": [{">": 309000}, {"<": 310000}]},
+        "tracker-strip": "GOOD",
+    }
+    runs = get_runs(filter=filter_run)
+    print(runs)
     assert len(runs) > 0
 
 
@@ -44,10 +54,13 @@ def test_get_runs_with_ignore_filter():
     filter_run = {
         "run_number": {"and": [{">": 309000}, {"<": 310000}]},
         "oms_attributes.hlt_key": {"like": "%commissioning2018%"},
-        "triplet_summary.dt_triplet.GOOD": {">": 0},
+        "triplet_summary.dt-dt.GOOD": {">": 0},
     }
     runs = get_runs(filter=filter_run, ignore_filter_transformation=True)
     assert len(runs) > 0
+
+
+test_get_runs_with_ignore_filter()
 
 
 def test_get_runs_not_compressed():
@@ -143,8 +156,11 @@ def test_get_datasets_with_filter():
             "tracker-strip": "GOOD",
         }
     )
+    other = json.dumps(datasets)
+    print(other)
 
 
+# test_get_datasets_with_filter()
 # TODO
 def test_generate_json():
     pass

@@ -50,9 +50,7 @@ def transform_to_rr_run_filter(run_filter):
                     raise Exception(
                         "status must be either GOOD, BAD, STANDBY, EXCLUDED, NOTSET or EMPTY"
                     )
-                transformed_filter["triplet_summary." + key + "_triplet." + value] = {
-                    ">": 0
-                }
+                transformed_filter["triplet_summary." + key + "." + value] = {">": 0}
             # If it is not a string, it must be a filter for comments, or causes:
             # TODO: DO THE FILTER FOR COMMENTS, AND STATUSES
         elif key in run_oms_attributes:

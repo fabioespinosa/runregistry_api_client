@@ -66,7 +66,7 @@ runregistry.get_runs(run_number={
 })
 ```
 
-Apply a custom filter (run_numbers between 309000 and 310000 which had at least one GOOD dt lumisection):
+Apply a custom filter (run_numbers between 309000 and 310000 which had at least one GOOD dt lumisection)
 
 ```python
 import runregistry
@@ -78,7 +78,24 @@ runregistry.get_runs(
                 {'<': 310000}
             ]
         },
-        'dt': 'GOOD'
+        'dt-dt': 'GOOD'
+    }
+)
+```
+
+Do note that we use dt-dt ('dt' twice) this is due to the fact that there are multiple workspaces, the first 'dt' states we are in dt workspace, the second 'dt' states we want column 'dt'. So the syntax for status flags is {workspace}-{column}. If we wanted runs the strip column from tracker workspace to be GOOD, the query would look like this:
+
+```python
+import runregistry
+runregistry.get_runs(
+    filter={
+        'run_number': {
+            'and':[
+                {'>': 309000},
+                {'<': 310000}
+            ]
+        },
+        'tracker-strip': 'GOOD'
     }
 )
 ```
@@ -96,7 +113,7 @@ Depending on the attribute you can use different operators:
 
 When using 'like' or 'notlike' operator, you must surround your query with percentage signs, see example below.
 
-When filtering for triplet attributes (anything that is GOOD/BAD/STANDBY...) you must not use any String values, the only value allowed is strict equality '=' and is set by default.
+When filtering for triplet attributes (anything that is GOOD/BAD/STANDBY...) you must not use any String values, the only value allowed is strict equality '=' and is set by default. The values allowed are GOOD, BAD, STANDBY, NOTSET, EXCLUDED and EMPTY.
 
 You can combine the filters as well:
 
@@ -137,7 +154,7 @@ runs = runregistry.get_runs(
         'oms_attributes.hlt_key': {
             'like': '%commissioning2018%'
         },
-        'triplet_summary.dt_triplet.GOOD': {
+        'triplet_summary.dt-dt.GOOD': {
             '>': 0
         }
     },
@@ -282,3 +299,9 @@ datasets = runregistry.get_datasets(filter={
     'run_number': {'and': [{'>': 309000}, {'<': 310000}]},
 })
 ```
+
+## Troubleshooting
+
+## Support
+
+If you have any questions, or the client is not working properly feel free to drop me an email at [f.e@cern.ch](mailto:f.e@cern.ch). Or through skype at fabioe24, i'm also available in mattermost.
