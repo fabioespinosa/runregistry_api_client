@@ -14,6 +14,10 @@ import pytest
 import json
 
 
+common_run_number = 328762
+common_dataset_name = "/Express/Commissioning2018/DQM""
+
+
 def test_get_run():
     run_number = 328762
     run = get_run(run_number=run_number)
@@ -46,7 +50,6 @@ def test_get_runs():
         "tracker-strip": "GOOD",
     }
     runs = get_runs(filter=filter_run)
-    print(runs)
     assert len(runs) > 0
 
 
@@ -60,12 +63,9 @@ def test_get_runs_with_ignore_filter():
     assert len(runs) > 0
 
 
-test_get_runs_with_ignore_filter()
-
-
 def test_get_runs_not_compressed():
     runs = get_runs(
-        filter={"run_number": {"and": [{">": 309000}, {"<": 310000}]}, "dt": "GOOD"},
+        filter={"run_number": {"and": [{">": 309000}, {"<": 310000}]}, "dt-dt": "GOOD"},
         compress_attributes=False,
     )
     assert len(runs) > 0
@@ -85,7 +85,7 @@ def get_runs_with_combined_filter():
             }
         }
     )
-    print(len(runs))
+    assert len(runs) > 0
 
 
 def test_get_dataset_names_of_run():
@@ -94,11 +94,9 @@ def test_get_dataset_names_of_run():
 
 
 def test_get_dataset():
-    run_number = 327604
     dataset_name = "/PromptReco/HICosmics18A/DQM"
-    dataset = get_dataset(run_number=run_number, dataset_name=dataset_name)
-    print(dataset)
-    assert dataset["run_number"] == run_number
+    dataset = get_dataset(run_number=common_run_number, dataset_name=dataset_name)
+    assert dataset["run_number"] == common_run_number
     assert dataset["name"] == dataset_name
 
 
@@ -106,47 +104,37 @@ def test_get_datasets():
     datasets = get_datasets(
         filter={"run_number": {"and": [{">": 309000}, {"<": 310000}]}}
     )
-    print(datasets)
+    assert len(datasets) > 0
 
 
 def test_get_lumisections():
-    run_number = 328762
-    dataset_name = "/Express/Commissioning2018/DQM"
-    lumisections = get_lumisections(run_number, dataset_name)
-    print(lumisections)
+    lumisections = get_lumisections(common_run_number, common_dataset_name)
     assert len(lumisections) > 0
 
 
 def test_get_oms_lumisections():
-    run_number = 328762
-    lumisections = get_oms_lumisections(run_number)
+    lumisections = get_oms_lumisections(common_run_number)
     assert len(lumisections) > 0
 
 
 def test_get_lumisection_ranges():
-    run_number = 328762
-    dataset_name = "/Express/Commissioning2018/DQM"
-    lumisections = get_lumisection_ranges(run_number, dataset_name)
+    lumisections = get_lumisection_ranges(common_run_number, common_dataset_name)
     assert len(lumisections) > 0
 
 
 def test_get_oms_lumisection_ranges():
-    run_number = 328762
-    dataset_name = "/Express/Commissioning2018/DQM"
-    lumisections = get_lumisection_ranges(run_number, dataset_name)
+    lumisections = get_lumisection_ranges(common_run_number, common_dataset_name)
     assert len(lumisections) > 0
 
 
 def test_get_joint_lumisection_ranges():
-    run_number = 328762
-    dataset_name = "/Express/Commissioning2018/DQM"
-    lumisections = get_joint_lumisection_ranges(run_number, dataset_name)
+    lumisections = get_joint_lumisection_ranges(common_run_number, common_dataset_name)
     assert len(lumisections) > 0
 
 
 def test_get_collisions18():
     runs = get_runs(filter={"class": "Collisions18"})
-    print(runs)
+    assert len(runs) > 0
 
 
 def test_get_datasets_with_filter():
@@ -156,8 +144,7 @@ def test_get_datasets_with_filter():
             "tracker-strip": "GOOD",
         }
     )
-    other = json.dumps(datasets)
-    print(other)
+    assert len(datasets) > 0
 
 
 # test_get_datasets_with_filter()

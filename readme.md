@@ -305,3 +305,5 @@ datasets = runregistry.get_datasets(filter={
 ## Support
 
 If you have any questions, or the client is not working properly feel free to drop me an email at [f.e@cern.ch](mailto:f.e@cern.ch). Or through skype at fabioe24, i'm also available in mattermost.
+
+## To update PIP package
