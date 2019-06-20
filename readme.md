@@ -29,7 +29,7 @@ You must provide a way for the client to access a [Grid user certificate](https:
 You can either do this in 3 possible ways:
 
 1.  Provide the certificate manually (explained below).
-2.  providing the user certificate in the conventional path (first `~\private\` and second `~\.globus\`).
+2.  providing a **passwordless** user certificate in the conventional path (first `~\private\` and second `~\.globus\`) (explained below).
 3.  Setting your own path where you store the certificate in an environment variable: `CERN_CERTIFICATE_PATH`
 
 ### Provide the certificate manually
@@ -46,7 +46,18 @@ openssl pkcs12 -nocerts -in myCertificate.p12 -out ~/private/userkey.tmp.pem
 openssl rsa -in ~/private/userkey.tmp.pem -out ~/private/userkey.pem
 ```
 
-TODO: finish way to insert certificate
+If you are in lxplus, everything should be done at this point since the package will first look for `~/private/` and the above commands will set up the certificate in `~/private/`.
+
+If you want to continue providing the certificate manually, you will have to modify the commands above with -out into a folder you remember.
+
+Then use the client in the following way:
+
+```python
+import runregistry
+run = runregistry.get_run(run_number=328762, cert=(cert, key) )
+```
+
+where cert and key are paths to the usercert.pem and userkey.pem generated above.
 
 ## Usage
 
