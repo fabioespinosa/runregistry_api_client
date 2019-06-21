@@ -1,3 +1,4 @@
+import os
 from runregistry.runregistry import (
     get_run,
     get_runs,
@@ -14,27 +15,26 @@ import pytest
 import json
 
 
-common_run_number = 327743
-common_dataset_name = "/PromptReco/HICosmics18A/DQM"
+# common_run_number = 327743
+common_run_number = 328788
+# common_dataset_name = "/PromptReco/HICosmics18A/DQM"
+common_dataset_name = "online"
 
 
 def test_with_local_certificate():
-    # if ENVIRONMENT == "development":
-    # For this test to pass you must include cert and key in certs/ folder:
-    cert = "certs/usercert.pem"
-    key = "certs/userkey.pem"
-    run = get_run(run_number=common_run_number, cert=(cert, key))
-    print(run)
-    # else:
-    #     pass
-
-
-test_with_local_certificate()
+    if os.getenv("ENVIRONMENT") == "development":
+        # For this test to pass you must include cert and key in certs/ folder:
+        cert = "certs/usercert.pem"
+        key = "certs/userkey.pem"
+        run = get_run(run_number=common_run_number, cert=(cert, key))
+        assert run["run_number"] == common_run_number
+    else:
+        pass
 
 
 def test_get_run():
     run_number = 328762
-    run = get_run(run_number=run_number)
+    run = get_run(run_number=328762)
     # print(run)
     assert run["run_number"] == run_number
     # Non existent run:
@@ -64,6 +64,7 @@ def test_get_runs():
         "tracker-strip": "GOOD",
     }
     runs = get_runs(filter=filter_run)
+    print(json.dumps(runs))
     assert len(runs) > 0
 
 
@@ -123,7 +124,12 @@ def test_get_datasets():
 
 def test_get_lumisections():
     lumisections = get_lumisections(common_run_number, common_dataset_name)
+    print(lumisections)
+    print(json.dumps(lumisections))
     assert len(lumisections) > 0
+
+
+test_get_lumisections()
 
 
 def test_get_oms_lumisections():
@@ -161,7 +167,6 @@ def test_get_datasets_with_filter():
     assert len(datasets) > 0
 
 
-# test_get_datasets_with_filter()
 # TODO
 def test_generate_json():
     pass

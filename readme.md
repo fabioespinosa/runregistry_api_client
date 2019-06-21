@@ -94,7 +94,7 @@ runs = runregistry.get_runs(
 )
 ```
 
-Do note that we use dt-dt ('dt' twice) this is due to the fact that there are multiple workspaces, the first 'dt' states we are in dt workspace, the second 'dt' states we want column 'dt'. So the syntax for status flags is {workspace}-{column}. If we wanted runs the strip column from tracker workspace to be GOOD, the query would look like this:
+Do note that we use dt-dt ('dt' twice) this is due to the fact that there are multiple workspaces, the first 'dt' states we are in dt workspace, the second 'dt' states we want column 'dt'. So the syntax for status flags is {workspace}-{column}. If we wanted runs with the strip column from tracker workspace to have at least 1 lumisection GOOD, the query would look like this:
 
 ```python
 import runregistry
@@ -206,6 +206,7 @@ dataset = runregistry.get_dataset(
 ### Get datasets
 
 ```python
+import runregistry
 datasets = runregistry.get_datasets(
     filter={
         'run_number': {
@@ -217,6 +218,34 @@ datasets = runregistry.get_datasets(
     }
 )
 ```
+
+### Get Lumisections
+
+#### Get the array of lumisections
+
+You can query the lumisections of a run (or dataset), you will need the run number and the dataset name (when querying for a run, the dataset name must be 'online')
+
+```python
+import runregistry
+# lumisections = runregistry.get_lumisections(run_number, dataset_name)
+lumisections = runregistry.get_lumisections(327743, "/PromptReco/HICosmics18A/DQM")
+```
+
+The response will be an array of lumisections which will contain {workspace}-{column}: {"status":"Either GOOD/BAD/STANDBY...", "comment": "a comment made for the range", "cause":"a common repeated cause"}
+
+#### Get lumisection ranges
+
+Usually there will be runs/datasets which contain an enormous amount of lumisections (some even more than 5000), therefore it can be heavy on the API to query for these type of lumisections.
+
+A query to retrieve ranges is also possible, you can do it like this:
+
+```python
+import runregistry
+# lumisections = runregistry.get_lumisection_ranges(run_number, dataset_name)
+lumisections = runregistry.get_lumisection_ranges(327743, "/PromptReco/HICosmics18A/DQM")
+```
+
+You will receive an array of ranges, that apart from stating the triplets (comment, status and cause) for each column, the array will consist of two more attributes called **start** (lumisection where range starts) and **end** (lumisection where range ends).
 
 ### Handling the response
 
@@ -271,7 +300,7 @@ Oms Attributes:
 | initial_prescale_index   | number  |    OMS     |
 | beams_present_and_stable | boolean |    OMS     |
 
-RR Attributes:
+RR Run Attributes:
 
 | Attribute   |  Type   | Belongs to |
 | ----------- | :-----: | :--------: |
@@ -280,28 +309,32 @@ RR Attributes:
 | significant | boolean |     RR     |
 | stop_reason | string  |     RR     |
 
-RR offline Status Attributes:
+RR Dataset Attributes:
 
-| Attribute |  Type  | Belongs to |
-| --------- | :----: | :--------: |
-| dt        | string |     RR     |
-| es        | string |     RR     |
-| cms       | string |     RR     |
-| csc       | string |     RR     |
-| hlt       | string |     RR     |
-| l1t       | string |     RR     |
-| pix       | string |     RR     |
-| rpc       | string |     RR     |
-| ecal      | string |     RR     |
-| hcal      | string |     RR     |
-| lumi      | string |     RR     |
-| ctpps     | string |     RR     |
-| l1tmu     | string |     RR     |
-| strip     | string |     RR     |
-| castor    | string |     RR     |
-| l1tcalo   | string |     RR     |
+| Attribute     |  Type  | Belongs to |
+| ------------- | :----: | :--------: |
+| dataset_name  | string |     RR     |
+| dt_state      | string |     RR     |
+| csc_state     | string |     RR     |
+| hlt_state     | string |     RR     |
+| l1t_state     | string |     RR     |
+| rpc_state     | string |     RR     |
+| tau_state     | string |     RR     |
+| btag_state    | string |     RR     |
+| ecal_state    | string |     RR     |
+| hcal_state    | string |     RR     |
+| lumi_state    | string |     RR     |
+| muon_state    | string |     RR     |
+| ctpps_state   | string |     RR     |
+| castor_state  | string |     RR     |
+| egamma_state  | string |     RR     |
+| global_state  | string |     RR     |
+| jetmet_state  | string |     RR     |
+| tracker_state | string |     RR     |
 
-For Offline status flags, filtering is also available. The Attribute is composed by {workspace}-{column}. So for example if we want to query for GOOD tracker-strip datasets of runs between 309000 and 310000, we would do it like this:
+The dt_state, csc_state and so on, are the workspace OFFLINE states of the datasets, they can be either OPEN, SIGNOFF or COMPLETED.
+
+For Offline and Online status flags, filtering is also available. The Attribute is composed by {workspace}-{column}. So for example if we want to query for GOOD tracker-strip datasets of runs between 309000 and 310000, we would do it like this:
 
 ```python
 import runregistry
