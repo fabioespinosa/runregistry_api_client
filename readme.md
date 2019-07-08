@@ -233,6 +233,14 @@ lumisections = runregistry.get_lumisections(327743, "/PromptReco/HICosmics18A/DQ
 
 The response will be an array of lumisections which will contain {workspace}-{column}: {"status":"Either GOOD/BAD/STANDBY...", "comment": "a comment made for the range", "cause":"a common repeated cause"}
 
+To get OMS data: use the OMS API. You should only use Run Registry for data that RR is responsible for. 
+However if you still want to access OMS lumisections, you can do so like this:
+```python
+import runregistry
+# oms_lumisections = runregistry.get_oms_lumisections(run_number)
+oms_lumisections = get_oms_lumisections(327743)
+```
+
 #### Get lumisection ranges
 
 Usually there will be runs/datasets which contain an enormous amount of lumisections (some even more than 5000), therefore it can be heavy on the API to query for these type of lumisections.
