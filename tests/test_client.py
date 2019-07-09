@@ -15,10 +15,8 @@ import pytest
 import json
 
 
-# common_run_number = 327743
-common_run_number = 328788
-# common_dataset_name = "/PromptReco/HICosmics18A/DQM"
-common_dataset_name = "online"
+common_run_number = 327743
+common_dataset_name = "/PromptReco/HICosmics18A/DQM"
 
 
 def test_with_local_certificate():
@@ -109,8 +107,9 @@ def test_get_dataset_names_of_run():
 
 
 def test_get_dataset():
-    dataset_name = "/PromptReco/HICosmics18A/DQM"
-    dataset = get_dataset(run_number=common_run_number, dataset_name=dataset_name)
+    dataset = get_dataset(
+        run_number=common_run_number, dataset_name=common_dataset_name
+    )
     assert dataset["run_number"] == common_run_number
     assert dataset["name"] == dataset_name
 
@@ -124,12 +123,7 @@ def test_get_datasets():
 
 def test_get_lumisections():
     lumisections = get_lumisections(common_run_number, common_dataset_name)
-    print(lumisections)
-    print(json.dumps(lumisections))
     assert len(lumisections) > 0
-
-
-test_get_lumisections()
 
 
 def test_get_oms_lumisections():
