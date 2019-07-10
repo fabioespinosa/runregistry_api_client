@@ -226,12 +226,12 @@ def get_lumisections(run_number, dataset_name="online", **kwargs):
     return _get_lumisection_helper(url, run_number, dataset_name, **kwargs)
 
 
-def get_oms_lumisections(run_number, **kwargs):
+def get_oms_lumisections(run_number, dataset_name="online", **kwargs):
     """
     Gets the OMS lumisections saved in RR database
     """
     url = "{}/lumisections/oms_lumisections".format(api_url)
-    return _get_lumisection_helper(url, run_number, dataset_name="online", **kwargs)
+    return _get_lumisection_helper(url, run_number, dataset_name, **kwargs)
 
 
 def get_lumisection_ranges(run_number, dataset_name="online", **kwargs):
@@ -256,3 +256,4 @@ def get_joint_lumisection_ranges(run_number, dataset_name="online", **kwargs):
     """
     url = "{}/lumisections/joint_lumisection_ranges".format(api_url)
     return _get_lumisection_helper(url, run_number, dataset_name, **kwargs)
+

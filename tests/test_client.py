@@ -20,14 +20,16 @@ common_dataset_name = "/PromptReco/HICosmics18A/DQM"
 
 
 def test_with_local_certificate():
-    if os.getenv("ENVIRONMENT") == "development":
-        # For this test to pass you must include cert and key in certs/ folder:
-        cert = "certs/usercert.pem"
-        key = "certs/userkey.pem"
-        run = get_run(run_number=common_run_number, cert=(cert, key))
-        assert run["run_number"] == common_run_number
-    else:
-        pass
+    # if os.getenv("ENVIRONMENT") == "development":
+    # For this test to pass you must include cert and key in certs/ folder:
+    cert = "certs/usercert.pem"
+    key = "certs/userkey.pem"
+    run = get_run(run_number=common_run_number, cert=(cert, key))
+    assert run["run_number"] == common_run_number
+    lumisections = get_oms_lumisections(run_number=common_run_number, cert=(cert, key))
+    assert len(lumisections) > 0
+    # else:
+    #     pass
 
 
 def test_get_run():
@@ -111,7 +113,7 @@ def test_get_dataset():
         run_number=common_run_number, dataset_name=common_dataset_name
     )
     assert dataset["run_number"] == common_run_number
-    assert dataset["name"] == dataset_name
+    assert dataset["name"] == common_dataset_name
 
 
 def test_get_datasets():
@@ -129,6 +131,8 @@ def test_get_lumisections():
 def test_get_oms_lumisections():
     lumisections = get_oms_lumisections(common_run_number)
     assert len(lumisections) > 0
+    dataset_lumisections = get_oms_lumisections(common_run_number, common_dataset_name)
+    assert len(dataset_lumisections) > 0
 
 
 def test_get_lumisection_ranges():

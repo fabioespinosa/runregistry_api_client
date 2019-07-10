@@ -233,12 +233,17 @@ lumisections = runregistry.get_lumisections(327743, "/PromptReco/HICosmics18A/DQ
 
 The response will be an array of lumisections which will contain {workspace}-{column}: {"status":"Either GOOD/BAD/STANDBY...", "comment": "a comment made for the range", "cause":"a common repeated cause"}
 
-To get OMS data: use the OMS API. You should only use Run Registry for data that RR is responsible for. 
+To get OMS data: use the OMS API. You should only use Run Registry for data that RR is responsible for.
 However if you still want to access OMS lumisections, you can do so like this:
+
+Previous Run Registry allowed you to change OMS (in that time WBM) attributes per dataset, if you need certain dataset lumisections you can provide the name of the RR dataset in the second argument:
+
 ```python
 import runregistry
-# oms_lumisections = runregistry.get_oms_lumisections(run_number)
-oms_lumisections = get_oms_lumisections(327743)
+# oms_lumisections = runregistry.get_oms_lumisections(run_number, dataset_name)
+oms_lumisections = get_oms_lumisections(327743, 'online')
+# If you want to get particular dataset that is not online for OMS lumisections:
+dataset_oms_lumisections = get_oms_lumisections(327743, '/PromptReco/HICosmics18A/DQM')
 ```
 
 #### Get lumisection ranges
