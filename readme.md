@@ -198,8 +198,8 @@ querying by comments and cause is not yet possible
 ```python
 import runregistry
 dataset = runregistry.get_dataset(
-        'run_number': 327604,
-        'dataset_name':"/PromptReco/HICosmics18A/DQM"
+        run_number=327604,
+        dataset_name="/PromptReco/HICosmics18A/DQM"
     )
 ```
 
