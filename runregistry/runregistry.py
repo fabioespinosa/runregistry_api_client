@@ -11,7 +11,7 @@ PAGE_SIZE = 50
 
 cert = "certs/usercert.pem"
 key = "certs/userkey.pem"
-api_url = "https://dev-cmsrunregistry.web.cern.ch/api"
+api_url = "https://cmsrunregistry.web.cern.ch/api"
 if os.getenv("ENVIRONMENT") == "development":
     api_url = "http://localhost:9500"
     cert = "certs/usercert.pem"
