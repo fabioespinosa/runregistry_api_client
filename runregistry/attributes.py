@@ -118,11 +118,9 @@ run_oms_attributes = (
     "last_update",
     "ls_duration",
     "stable_beam",
-    "daq_included",
     "trigger_mode",
     "cmssw_version",
     "recorded_lumi",
-    "tcds_included",
     "delivered_lumi",
     "tier0_transfer",
     "l1_key_stripped",
@@ -137,6 +135,17 @@ run_oms_attributes = (
     "hlt_physics_throughput",
     "initial_prescale_index",
     "beams_present_and_stable",
+    "es_included",
+    "hf_included",
+    "daq_included",
+    "dcs_included",
+    "dqm_included",
+    "gem_included",
+    "trg_included",
+    "hcal_included",
+    "tcds_included",
+    "pixel_included",
+    "tracker_included"
 )
 
 

@@ -257,3 +257,16 @@ def get_joint_lumisection_ranges(run_number, dataset_name="online", **kwargs):
     url = "{}/lumisections/joint_lumisection_ranges".format(api_url)
     return _get_lumisection_helper(url, run_number, dataset_name, **kwargs)
 
+
+def generate_json(json_logic, **kwargs):
+    """
+    It receives a json logic configuration and returns a json with lumisections which pass the filter
+    """
+    if isinstance(json_logic, str) == False:
+        json_logic = json.dumps(json_logic)
+    url = "{}/json_creation/generate".format(api_url)
+    headers = {"Content-type": "application/json"}
+    cookies = _get_cookies(url, **kwargs)
+    payload = json.dumps({"json_logic": json_logic})
+    response = requests.post(url, cookies=cookies, headers=headers, data=payload).json()
+    return response['final_json']

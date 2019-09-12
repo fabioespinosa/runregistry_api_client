@@ -274,44 +274,56 @@ According to the type of attribute (number, string, boolean), see the Operator t
 
 Oms Attributes:
 
-| Attribute                |  Type   | Belongs to |
-| ------------------------ | :-----: | :--------: |
-| run_number               | number  |    OMS     |
-| energy                   | number  |    OMS     |
-| l1_key                   | string  |    OMS     |
-| b_field                  | number  |    OMS     |
-| hlt_key                  | string  |    OMS     |
-| l1_menu                  | string  |    OMS     |
-| l1_rate                  | number  |    OMS     |
-| duration                 | number  |    OMS     |
-| end_lumi                 | number  |    OMS     |
-| end_time                 |  date   |    OMS     |
-| sequence                 | string  |    OMS     |
-| init_lumi                | number  |    OMS     |
-| clock_type               | string  |    OMS     |
-| start_time               |  date   |    OMS     |
-| fill_number              | number  |    OMS     |
-| l1_hlt_mode              | string  |    OMS     |
-| last_update              |  date   |    OMS     |
-| ls_duration              | number  |    OMS     |
-| stable_beam              | boolean |    OMS     |
-| trigger_mode             | string  |    OMS     |
-| cmssw_version            | string  |    OMS     |
-| recorded_lumi            | number  |    OMS     |
-| delivered_lumi           | number  |    OMS     |
-| tier0_transfer           | boolean |    OMS     |
-| l1_key_stripped          | string  |    OMS     |
-| fill_type_party1         | string  |    OMS     |
-| fill_type_party2         | string  |    OMS     |
-| hlt_physics_rate         | number  |    OMS     |
-| hlt_physics_size         | number  |    OMS     |
-| fill_type_runtime        | string  |    OMS     |
-| hlt_physics_counter      | number  |    OMS     |
-| l1_triggers_counter      | number  |    OMS     |
-| l1_hlt_mode_stripped     | string  |    OMS     |
-| hlt_physics_throughput   | number  |    OMS     |
-| initial_prescale_index   | number  |    OMS     |
-| beams_present_and_stable | boolean |    OMS     |
+| Attribute                                                                                  |  Type   | Belongs to |
+| ------------------------------------------------------------------------------------------ | :-----: | :--------: |
+| run_number                                                                                 | number  |    OMS     |
+| energy                                                                                     | number  |    OMS     |
+| l1_key                                                                                     | string  |    OMS     |
+| b_field                                                                                    | number  |    OMS     |
+| hlt_key                                                                                    | string  |    OMS     |
+| l1_menu                                                                                    | string  |    OMS     |
+| l1_rate                                                                                    | number  |    OMS     |
+| duration                                                                                   | number  |    OMS     |
+| end_lumi                                                                                   | number  |    OMS     |
+| end_time                                                                                   |  date   |    OMS     |
+| sequence                                                                                   | string  |    OMS     |
+| init_lumi                                                                                  | number  |    OMS     |
+| clock_type                                                                                 | string  |    OMS     |
+| start_time                                                                                 |  date   |    OMS     |
+| fill_number                                                                                | number  |    OMS     |
+| l1_hlt_mode                                                                                | string  |    OMS     |
+| last_update                                                                                |  date   |    OMS     |
+| ls_duration                                                                                | number  |    OMS     |
+| stable_beam                                                                                | boolean |    OMS     |
+| trigger_mode                                                                               | string  |    OMS     |
+| cmssw_version                                                                              | string  |    OMS     |
+| recorded_lumi                                                                              | number  |    OMS     |
+| delivered_lumi                                                                             | number  |    OMS     |
+| tier0_transfer                                                                             | boolean |    OMS     |
+| l1_key_stripped                                                                            | string  |    OMS     |
+| fill_type_party1                                                                           | string  |    OMS     |
+| fill_type_party2                                                                           | string  |    OMS     |
+| hlt_physics_rate                                                                           | number  |    OMS     |
+| hlt_physics_size                                                                           | number  |    OMS     |
+| fill_type_runtime                                                                          | string  |    OMS     |
+| hlt_physics_counter                                                                        | number  |    OMS     |
+| l1_triggers_counter                                                                        | number  |    OMS     |
+| l1_hlt_mode_stripped                                                                       | string  |    OMS     |
+| hlt_physics_throughput                                                                     | number  |    OMS     |
+| initial_prescale_index                                                                     | number  |    OMS     |
+| beams_present_and_stable                                                                   | boolean |    OMS     |
+| es_included                                                                                | boolean |    OMS     |
+| hf_included                                                                                | boolean |    OMS     |
+| daq_included                                                                               | boolean |    OMS     |
+| dcs_included                                                                               | boolean |    OMS     |
+| dqm_included                                                                               | boolean |    OMS     |
+| gem_included                                                                               | boolean |    OMS     |
+| trg_included                                                                               | boolean |    OMS     |
+| hcal_included                                                                              | boolean |    OMS     |
+| tcds_included                                                                              | boolean |    OMS     |
+| pixel_included                                                                             | boolean |    OMS     |
+| tracker_included                                                                           | boolean |    OMS     |
+| \*\_included (be sure to add it to the validation runregistry/attributes if it's not here) | boolean |    OMS     |
 
 RR Run Attributes:
 
@@ -357,11 +369,54 @@ datasets = runregistry.get_datasets(filter={
 })
 ```
 
+## Generating JSONs
+
+In order to generate JSONs (like the golden json) you must send the configuration of the attributes you wish the generated json to satisfy (in json-logic) TODO: make manual.
+
+The json logic below generates a json file for all datasets that belong to era A,B, C, D, E, F, G, H, I from year 2018, and also
+
+```python
+import runregistry
+json_logic = {
+        "and": [
+            {
+                "or": [
+                    {"==": [{"var": "dataset.name"}, "/PromptReco/Collisions2018A/DQM"]},
+                    {"==": [{"var": "dataset.name"}, "/PromptReco/Collisions2018B/DQM"]},
+                    {"==": [{"var": "dataset.name"}, "/PromptReco/Collisions2018C/DQM"]},
+                    {"==": [{"var": "dataset.name"}, "/PromptReco/Collisions2018D/DQM"]},
+                    {"==": [{"var": "dataset.name"}, "/PromptReco/Collisions2018E/DQM"]},
+                    {"==": [{"var": "dataset.name"}, "/PromptReco/Collisions2018F/DQM"]},
+                    {"==": [{"var": "dataset.name"}, "/PromptReco/Collisions2018G/DQM"]},
+                    {"==": [{"var": "dataset.name"}, "/PromptReco/Collisions2018H/DQM"]},
+                    {"==": [{"var": "dataset.name"}, "/PromptReco/Collisions2018I/DQM"]}
+                ]
+            },
+            { ">=": [{ "var": "run.oms.energy" }, 6000] },
+            { "<=": [{ "var": "run.oms.energy" }, 7000] },
+            { ">=": [{ "var": "run.oms.b_field" }, 3.7] },
+            { "in": [ "25ns", { "var": "run.oms.injection_scheme" }] },
+            { "==": [{ "in": [ "WMass", { "var": "run.oms.hlt_key" }] }, False] },
+
+            { "==": [{ "var": "lumisection.rr.dt-dt" }, "GOOD"] },
+            { "==": [{ "var": "lumisection.rr.csc-csc" }, "GOOD"] },
+            { "==": [{ "var": "lumisection.rr.l1t-l1tmu" }, "GOOD"] },
+            { "==": [{ "var": "lumisection.rr.l1t-l1tcalo" }, "GOOD"] },
+            { "==": [{ "var": "lumisection.rr.hlt-hlt" }, "GOOD"] },
+
+            { "==": [{ "var": "lumisection.oms.bpix_ready" }, True] }
+        ]
+}
+generated_json = runregistry.generate_json(json_logic)
+
+
 ## Running Tests
 
 ```
+
 pytest --cov .
-```
+
+````
 
 ## Troubleshooting
 
@@ -374,7 +429,7 @@ If you have any questions, or the client is not working properly feel free to dr
 ```bash
 python setup.py sdist bdist_wheel
 twine upload --repository-url https://test.pypi.org/legacy/ dist/*
-```
+````
 
 ## FAQ
 
