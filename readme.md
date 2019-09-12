@@ -29,7 +29,7 @@ You must provide a way for the client to access a [Grid user certificate](https:
 You can either do this in 3 possible ways:
 
 1.  Provide the certificate manually (explained below).
-2.  providing a **passwordless** user certificate in the conventional path (first `~\private\` and second `~\.globus\`) (explained below).
+2.  providing a **passwordless** user certificate in the conventional path (first `~/private/` and second `~/.globus/`) (explained below).
 3.  Setting your own path where you store the certificate in an environment variable: `CERN_CERTIFICATE_PATH`
 
 ### Provide the certificate manually
