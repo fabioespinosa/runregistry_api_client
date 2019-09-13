@@ -16,7 +16,7 @@ run_triplet_attributes = (
     "l1t-l1tmu",
     "lumi-lumi",
     "rpc-rpc",
-    "tracker-pix",
+    "tracker-pixel",
     "tracker-strip",
     # Non global:
     "btag-btag",
