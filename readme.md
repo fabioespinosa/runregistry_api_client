@@ -72,8 +72,10 @@ run = runregistry.get_run(run_number=328762)
 
 ```python
 import runregistry
-runs = runregistry.get_runs(run_number={
-    'or': [328762, 323555, 323444]
+runs = runregistry.get_runs(filter={
+   'run_number':{
+      'or': [328762, 323555, 323444]
+    }
 })
 ```
 
