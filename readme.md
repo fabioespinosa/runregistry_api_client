@@ -164,6 +164,7 @@ runs = runregistry.get_runs(
                 {'<': 310000}
             ]
         },
+        # Remember! this will only work if you pass ignore_filter_transformation=True (please read above what this means), otherwise use the other examples
         'oms_attributes.hlt_key': {
             'like': '%commissioning2018%'
         },
