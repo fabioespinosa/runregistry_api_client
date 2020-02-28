@@ -96,7 +96,7 @@ runs = runregistry.get_runs(
 )
 ```
 
-Do note that we use dt-dt ('dt' twice) this is due to the fact that there are multiple workspaces, the first 'dt' states we are in dt workspace, the second 'dt' states we want column 'dt'. So the syntax for status flags is {workspace}-{column}. If we wanted runs with the strip column from tracker workspace to have at least 1 lumisection GOOD, the query would look like this:
+Do note that we use `dt-dt` ('dt' twice) this is due to the fact that there are multiple workspaces, the first 'dt' states we are in dt workspace, the second 'dt' states we want column 'dt'. So the syntax for status flags is `{workspace}-{column}`. If we wanted runs with the strip column from tracker workspace to have at least 1 lumisection GOOD, the query would look like this:
 
 ```python
 import runregistry
@@ -124,7 +124,7 @@ Depending on the attribute you can use different operators:
 | Boolean   |         = (true, false)         |
 | date      | '=', '>', '<', '>=', '<=', '<>' |
 
-When using 'like' or 'notlike' operator, you must surround your query with percentage signs, see example below.
+When using `like` or `notlike` operator, you must surround your query with percentage signs, see example below.
 
 When filtering for triplet attributes (anything that is GOOD/BAD/STANDBY...) you must not use any String values, the only value allowed is strict equality '=' and is set by default. The values allowed are GOOD, BAD, STANDBY, NOTSET, EXCLUDED and EMPTY.
 
@@ -234,7 +234,7 @@ import runregistry
 lumisections = runregistry.get_lumisections(327743, "/PromptReco/HICosmics18A/DQM")
 ```
 
-The response will be an array of lumisections which will contain {workspace}-{column}: {"status":"Either GOOD/BAD/STANDBY...", "comment": "a comment made for the range", "cause":"a common repeated cause"}
+The response will be an array of lumisections which will contain `{workspace}-{column}: {"status":"Either GOOD/BAD/STANDBY...", "comment": "a comment made for the range", "cause":"a common repeated cause"}`
 
 To get OMS data: use the OMS API. You should only use Run Registry for data that RR is responsible for.
 However if you still want to access OMS lumisections, you can do so like this:
@@ -362,7 +362,7 @@ RR Dataset Attributes:
 
 The dt_state, csc_state and so on, are the workspace OFFLINE states of the datasets, they can be either OPEN, SIGNOFF or COMPLETED.
 
-For Offline and Online status flags, filtering is also available. The Attribute is composed by {workspace}-{column}. So for example if we want to query for GOOD tracker-strip datasets of runs between 309000 and 310000, we would do it like this:
+For Offline and Online status flags, filtering is also available. The Attribute is composed by `{workspace}-{column}`. So for example if we want to query for GOOD tracker-strip datasets of runs between 309000 and 310000, we would do it like this:
 
 ```python
 import runregistry
@@ -411,23 +411,21 @@ json_logic = {
         ]
 }
 generated_json = runregistry.generate_json(json_logic)
-
+```
 
 ## Running Tests
 
 ```
-
 pytest --cov .
-
 ````
 
 ## Troubleshooting
 
-## Support
+### Support
 
 If you have any questions, or the client is not working properly feel free to drop me an email at [f.e@cern.ch](mailto:f.e@cern.ch). Or through skype at fabioe24, i'm also available in mattermost.
 
-## To update PIP package
+### To update PIP package
 
 ```bash
 python setup.py sdist bdist_wheel
