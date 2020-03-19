@@ -7,7 +7,6 @@ from runregistry.attributes import (
     run_oms_attributes,
     dataset_table_attributes,
     dataset_attributes,
-    dataset_other_attributes,
     dataset_triplet_attributes,
 )
 
