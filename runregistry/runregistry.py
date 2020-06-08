@@ -38,7 +38,8 @@ def _get_cookies(url, **kwargs):
             'No certificate passed, pass one in a tuple as cert=(cert,key), to authenticate your request. Or place them in your /private folder on AFS under the names of "usercert.pem" and "userkey.pem", please read authentication on README.md for more details'
         )
     ca_bundle = certs.where()
-    cookies = get_sso_cookies(url, cert)
+    # Skip SSL verification since this must be fixed in the cernrequest package
+    cookies = get_sso_cookies(url, cert, verify=False)
     return cookies
 
 
