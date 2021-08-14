@@ -14,7 +14,7 @@ pip install runregistry
 
 Python version>=3.6 is required for this package.
 
-To use python 3.6 in lxplus: https://cern.service-now.com/service-portal/article.do?n=KB0000730
+To use python 3.6 in lxplus: https://cern.service-now.com/service-portal?id=kb_article&sys_id=3554cdc50a0a8c0800e89d3ccb5ed4a7
 A virtual environment is also required, if you are in lxplus you should run the following commands:
 
 ```bash
